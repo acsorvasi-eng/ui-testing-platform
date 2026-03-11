@@ -8,6 +8,7 @@ import { ToleranceEditor } from "./ToleranceEditor";
 import { MeasureToolPanel } from "./MeasureTool";
 import type { Measurement } from "../types";
 import { configureOpus } from "../engine/OpusQA";
+import { MasterPicker } from "./MasterPicker";
 
 /* ================================================================== */
 /* Severity config (display only)                                       */
@@ -142,11 +143,17 @@ export function TestingSidebar({
           <span className="text-[13px] text-[#1C1B1F]" style={{ fontWeight: 600 }}>
             Master Design
           </span>
-          {masterDims.w > 0 && (
-            <span className="ml-auto text-[9px] text-[#9E9E9E]" style={{ fontWeight: 500 }}>
-              {masterDims.w}&times;{masterDims.h}
-            </span>
-          )}
+          <div className="ml-auto flex items-center gap-2 relative">
+            {masterDims.w > 0 && (
+              <span className="text-[9px] text-[#9E9E9E]" style={{ fontWeight: 500 }}>
+                {masterDims.w}&times;{masterDims.h}
+              </span>
+            )}
+            <MasterPicker
+              currentUrl={deviceTest.masterScreenUrl}
+              onSelect={(url) => onUpdateTest({ masterScreenUrl: url })}
+            />
+          </div>
         </div>
         <div
           className={`px-3 pb-3 transition-colors ${masterDragOver ? "bg-[#E8EAF6]" : ""}`}
